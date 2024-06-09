@@ -1,0 +1,50 @@
+import tkinter
+import random
+root = tkinter.Tk()
+root.configure(bg='light blue')
+root.title('To Do List')
+root.geometry('250x250')
+tasks = []
+def update_listbox():
+    clear_listbox()
+    for task in tasks:
+        lb_tasks.insert("end", task)
+def clear_listbox():
+    lb_tasks.delete(0,"end")
+def add_task():
+    task = txt_input.get()
+    if task != '':
+        tasks.append(task)
+        update_listbox()
+    else:
+        display['text'] = "enter a task!"
+    txt_input.delete(0,'end')
+def delete():
+    task = lb_tasks.get('active')
+    if task in tasks:
+        tasks.remove(task)
+    update_listbox()
+    display['text'] = "Task deleted!"
+def number_of_task():
+    number_of_tasks = len(tasks)
+    msg = "Number of tasks : %s" %number_of_tasks
+    display['text'] = msg
+def exit():
+    quit()
+title = tkinter.Label(root, text = "To-Do-List", bg='White')
+title.grid(row=0,column=0)
+display = tkinter.Label(root, text = "", bg='white')
+display.grid(row=0,column=1)
+txt_input = tkinter.Entry(root, width=15)
+txt_input.grid(row=1,column=1)
+btn_add_task = tkinter.Button(root, text = "Add Task", fg = 'black', bg = None, command = add_task)
+btn_add_task.grid(row=1,column=0)
+btn_delete = tkinter.Button(root, text = "Delete", fg = 'black', bg = None, command = delete)
+btn_delete.grid(row=2,column=0)
+btn_number_of_task = tkinter.Button(root, text = "Number of Tasks", fg = 'black', bg = None, command = number_of_task)
+btn_number_of_task.grid(row=3,column=0)
+btn_close = tkinter.Button(root, text = "Exit", fg = 'black', bg = None, command = exit)
+btn_close.grid(row=5,column=0)
+lb_tasks = tkinter.Listbox(root)
+lb_tasks.grid(row=2,column=1,rowspan=8)
+root.mainloop()
